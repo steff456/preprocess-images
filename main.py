@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 def main():
     """Main for the program for getting image stats."""
     base_dir = '/home/sjimenez/imagenes_prueba'
-    out_dir = '/home/sjimenez/imagenes_prueba'
+    out_dir = '/home/sjimenez/easy_analysis'
     for _, _, files in os.walk(base_dir, topdown=False):
         for f in files:
             print('--------- {} ---------'.format(f))
@@ -16,6 +16,8 @@ def main():
             act_im = cv2.imread(act_dir)
             if act_im is not None:
                 get_image_stats(act_im, out_dir, f)
+            else:
+                print('Not able to open the image')
 
 
 def get_image_stats(image, out_dir, cur_file):
@@ -40,11 +42,14 @@ def get_image_stats(image, out_dir, cur_file):
     plt.ylabel('Número de pixeles')
     print('Saving histogram')
     plt.savefig(output_file, bbox_inches='tight')
+    plt.close()
 
     # LAB space
     lab_image = cv2.cvtColor(image[8000:8500, 8000:8500, :], cv2.COLOR_BGR2LAB)
     output_file = osp.join(out_dir, output_base, 'lab.png')
     cv2.imwrite(output_file, lab_image)
+    output_file = osp.join(out_dir, output_base, 'original.png')
+    cv2.imwrite(output_file, image[8000:8500, 8000:8500, :])
 
 
 main()
