@@ -20,7 +20,7 @@ def main():
 def get_image_stats(image, out_dir, cur_file):
     """Retrieve important information of the image."""
     # Output directory
-    output_base = osp.join(out_dir, cur_file)
+    output_base = osp.join(out_dir, cur_file.split('.')[0])
     os.mkdir(output_base)
     # Print dimensions of the image
     width, height, color = image.shape
@@ -46,5 +46,4 @@ def get_image_stats(image, out_dir, cur_file):
     cv2.imwrite(output_file, lab_image)
 
 
-if __name__ == "__main__":
-    main()
+main()
