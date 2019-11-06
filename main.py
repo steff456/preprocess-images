@@ -14,7 +14,8 @@ def main():
             print('--------- {} ---------'.format(f))
             act_dir = osp.join(base_dir, f)
             act_im = cv2.imread(act_dir)
-            get_image_stats(act_im, out_dir, f)
+            if act_im is not None:
+                get_image_stats(act_im, out_dir, f)
 
 
 def get_image_stats(image, out_dir, cur_file):
